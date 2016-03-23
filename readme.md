@@ -9,7 +9,7 @@ Example caddyfile:
 :7777 {
   root testSite
   templates
-  oauth {
+  github {
     login_url /login
     callback_url /ghcb
     cookie_name gh_auth
