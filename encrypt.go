@@ -36,7 +36,6 @@ func (e *encryptor) encrypt(plaintext []byte) string {
 	stream := cipher.NewCFBEncrypter(e.aes, iv)
 	stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
 	hash := e.hash(ciphertext)
-	e.hash(ciphertext)
 	return base64.StdEncoding.EncodeToString(append(hash, ciphertext...))
 }
 

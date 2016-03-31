@@ -1,8 +1,21 @@
 <html><body>
-hello "{{.Header "X-GITHUB-USER"}}" 
 
-<br/>
-<img src="{{.Header "X-GITHUB-AVATAR"}}" width="50px"></img>
-
-<br/>
-Token: {{.Header "X-GITHUB-TOKEN"}}
+{{range .Slice "GITHUB" "GPLUS" "FACEBOOK"}}
+<h1>{{.}}</h1>
+ <div>
+     {{$headerPre := print "X-" . "-"}}
+     {{$userHead := print $headerPre "USER"}}
+     {{if $.Header $userHead}}
+        hello "{{$.Header $userHead}}" 
+        <br/>
+        <img src="{{$.Header (print $headerPre "AVATAR")}}" width="50px"></img>
+        <br/>
+        Token: {{$.Header (print $headerPre "TOKEN")}}
+        <br/>
+        <a href="/auth/{{$.ToLower .}}/logout">Log out</a>
+     {{else}}
+        not logged in to {{$.ToLower .}} <a href="/auth/{{$.ToLower .}}/login">Log in</a>
+     {{end}}
+</div>
+{{end}}
+<hr/>
